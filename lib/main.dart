@@ -8,6 +8,7 @@ import 'package:real_version/const/routes.dart';
 import 'package:real_version/docteur/screens/search.dart';
 import 'package:real_version/patient/screens/login_page.dart';
 import 'package:real_version/patient/screens/profile_page.dart';
+import 'package:real_version/splash.dart';
 import 'admin/patient_informations.dart';
 import 'firebase_options.dart';
 import 'utilities/get_role.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const Homepage(),
+      home: const Splash(),
       routes: {
         profilRoute : (context) => const ProfilPage1(),
         searchRoute :(context) => const SearchPatient(),

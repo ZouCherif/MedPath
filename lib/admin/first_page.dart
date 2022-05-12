@@ -1,6 +1,4 @@
 // ignore_for_file: sized_box_for_whitespace
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +8,9 @@ import 'package:real_version/const/routes.dart';
 import 'package:real_version/utilities/show_error_dialog.dart';
 
 import 'general.dart';
+
 String radioButtonItem = 'patient';
+
 enum SingingCharacter { lafayette, jefferson }
 
 class FirstPage extends StatefulWidget {
@@ -41,7 +41,6 @@ class _FirstPageState extends State<FirstPage> {
     super.dispose();
   }
 
-
   bool isPasswordVisible = false;
   bool isPasswordVisible1 = false;
 
@@ -53,37 +52,43 @@ class _FirstPageState extends State<FirstPage> {
       body: Column(
         children: [
           const SizedBox(
-            height: 80,
+            height: 40,
           ),
           Center(
             child: SizedBox(
-              width: size.width * 0.43969849246231,
-              height: 100,
+              width: size.width * 0.8,
+              height: 140,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    "let’s add some users ",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xff406083),
-                      fontSize: 40,
+                  const FittedBox(
+                    child: Text(
+                      "let’s add some users ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xff406083),
+                        fontSize: 35,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 5),
                   SizedBox(
-                    width: size.width * 0.43969849246231,
-                    height: 35,
-                    child: const Text(
-                      "Add a new account by filing the boxes below",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xff406083),
-                        fontSize: 25,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w300,
+                    width: size.width * 0.7,
+                    height: 34,
+                    child: const FittedBox(
+                      child: FittedBox(
+                        child: Text(
+                          "Add a new account by filing the boxes below",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xff406083),
+                            fontSize: 25,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -96,193 +101,190 @@ class _FirstPageState extends State<FirstPage> {
           ),
           Container(
             height: 422,
-            width: size.width * 0.43969849246231,
+            width: size.width * 0.8,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: Colors.white,
             ),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 39,
-                ),
-                Row(
-                  children: const [
-                    SizedBox(
-                      width: 42,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 39,
+                  ),
+
+                  const FittedBox(
+                    child: Text(
+                      "type of the account:",
+                      style: TextStyle(
+                        color: Color(0xff406083),
+                        fontSize: 15,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    FittedBox(
-                      child: Text(
-                        "type of the account:",
-                        style: TextStyle(
-                          color: Color(0xff406083),
-                          fontSize: 15,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w500,
+                  ),
+                  SizedBox(
+                    width: 0.05 * size.width,
+                  ),
+                  const RadioGroup(),
+                  const SizedBox(
+                    height: 38,
+                  ),
+                  Container(
+                    height: 42,
+                    width: 336,
+                    decoration: const BoxDecoration(),
+                    child: TextField(
+                      controller: _email,
+                      decoration: InputDecoration(
+                        fillColor: bgcolor,
+                        labelText: "Email",
+                        labelStyle:
+                            const TextStyle(fontSize: 15, color: bluefnc),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromRGBO(209, 209, 209, 5),
+                                width: 2),
+                            borderRadius: BorderRadius.circular(15)),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color.fromRGBO(209, 209, 209, 5),
+                              width: 2),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.email_outlined,
+                          color: bluefnc,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 59,
-                    ),
-                    RadioGroup(),
-                  ],
-                ),
-                const SizedBox(
-                  height: 38,
-                ),
-                Container(
-                  height: 42,
-                  width: 336,
-                  decoration: const BoxDecoration(),
-                  child: TextField(
-                    controller: _email,
-                    decoration: InputDecoration(
-                      fillColor: bgcolor,
-                      labelText: "Email",
-                      labelStyle: const TextStyle(fontSize: 15, color: bluefnc),
-                      enabledBorder: OutlineInputBorder(
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    height: 42,
+                    width: 336,
+                    decoration: const BoxDecoration(),
+                    child: TextField(
+                      controller: _password,
+                      obscureText: isPasswordVisible ? false : true,
+                      decoration: InputDecoration(
+                        fillColor: bgcolor,
+                        labelText: "enter the password",
+                        labelStyle:
+                            const TextStyle(fontSize: 15, color: bluefnc),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromRGBO(209, 209, 209, 5),
+                                width: 2),
+                            borderRadius: BorderRadius.circular(15)),
+                        focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: Color.fromRGBO(209, 209, 209, 5),
                               width: 2),
-                          borderRadius: BorderRadius.circular(15)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromRGBO(209, 209, 209, 5), width: 2),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.email_outlined,
-                        color: bluefnc,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.key_outlined,
+                          color: bluefnc,
+                        ),
+                        suffixIcon: IconButton(
+                          color: bluefnc,
+                          onPressed: () {
+                            setState(() {
+                              isPasswordVisible = !isPasswordVisible;
+                            });
+                          },
+                          icon: Icon(isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  height: 42,
-                  width: 336,
-                  decoration: const BoxDecoration(),
-                  child: TextField(
-                    controller: _password,
-                    obscureText: isPasswordVisible ? false : true,
-                    decoration: InputDecoration(
-                      fillColor: bgcolor,
-                      labelText: "enter the password",
-                      labelStyle: const TextStyle(fontSize: 15, color: bluefnc),
-                      enabledBorder: OutlineInputBorder(
+                  const SizedBox(height: 12),
+                  Container(
+                    height: 42,
+                    width: 336,
+                    decoration: const BoxDecoration(),
+                    child: TextFormField(
+                      controller: _password2,
+                      obscureText: isPasswordVisible1 ? false : true,
+                      decoration: InputDecoration(
+                        fillColor: bgcolor,
+                        labelText: "confirm the password",
+                        labelStyle:
+                            const TextStyle(fontSize: 15, color: bluefnc),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromRGBO(209, 209, 209, 5),
+                                width: 2),
+                            borderRadius: BorderRadius.circular(15)),
+                        focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: Color.fromRGBO(209, 209, 209, 5),
                               width: 2),
-                          borderRadius: BorderRadius.circular(15)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromRGBO(209, 209, 209, 5), width: 2),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.key_outlined,
-                        color: bluefnc,
-                      ),
-                      suffixIcon: IconButton(
-                        color: bluefnc,
-                        onPressed: () {
-                          setState(() {
-                            isPasswordVisible = !isPasswordVisible;
-                          });
-                        },
-                        icon: Icon(isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.key_outlined,
+                          color: bluefnc,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  height: 42,
-                  width: 336,
-                  decoration: const BoxDecoration(),
-                  child: TextFormField(
-                    controller: _password2,
-                    obscureText: isPasswordVisible1 ? false : true,
-                    decoration: InputDecoration(
-                      fillColor: bgcolor,
-                      labelText: "confirm the password",
-                      labelStyle: const TextStyle(fontSize: 15, color: bluefnc),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromRGBO(209, 209, 209, 5),
-                              width: 2),
-                          borderRadius: BorderRadius.circular(15)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromRGBO(209, 209, 209, 5), width: 2),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.key_outlined,
-                        color: bluefnc,
-                      ),
-                      suffixIcon: const Icon(
-                        Icons.check_outlined,
-                        color: bluefnc,
-                      ),
-                    ),
+                  // const SizedBox(
+                  //   height: 12,
+                  // ),
+                  // SizedBox(
+                  //   width: 336,
+                  //   height: 42,
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //         shadowColor: const Color.fromRGBO(209, 209, 209, 100),
+                  //         elevation: 4,
+                  //         primary: const Color.fromRGBO(209, 209, 209, 100),
+                  //         shape: RoundedRectangleBorder(
+                  //             borderRadius: BorderRadius.circular(15))),                                         //verify button
+                  //     onPressed: () {
+                  //       log(radioButtonItem);
+                  //     },
+                  //     child: Row(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       mainAxisAlignment: MainAxisAlignment.end,
+                  //       crossAxisAlignment: CrossAxisAlignment.end,
+                  //       children: const [
+                  //         Text(
+                  //           "Verified",
+                  //           textAlign: TextAlign.center,
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontSize: 18,
+                  //             fontFamily: "Poppins",
+                  //             fontWeight: FontWeight.w600,
+                  //           ),
+                  //         ),
+                  //         SizedBox(width: 12),
+                  //         Icon(
+                  //           Icons.check_outlined,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  const SizedBox(
+                    height: 35,
                   ),
-                ),
-                // const SizedBox(
-                //   height: 12,
-                // ),
-                // SizedBox(
-                //   width: 336,
-                //   height: 42,
-                //   child: ElevatedButton(
-                //     style: ElevatedButton.styleFrom(
-                //         shadowColor: const Color.fromRGBO(209, 209, 209, 100),
-                //         elevation: 4,
-                //         primary: const Color.fromRGBO(209, 209, 209, 100),
-                //         shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(15))),                                         //verify button
-                //     onPressed: () {
-                //       log(radioButtonItem);
-                //     },
-                //     child: Row(
-                //       mainAxisSize: MainAxisSize.min,
-                //       mainAxisAlignment: MainAxisAlignment.end,
-                //       crossAxisAlignment: CrossAxisAlignment.end,
-                //       children: const [
-                //         Text(
-                //           "Verified",
-                //           textAlign: TextAlign.center,
-                //           style: TextStyle(
-                //             color: Colors.white,
-                //             fontSize: 18,
-                //             fontFamily: "Poppins",
-                //             fontWeight: FontWeight.w600,
-                //           ),
-                //         ),
-                //         SizedBox(width: 12),
-                //         Icon(
-                //           Icons.check_outlined,
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
-                const SizedBox(
-                  height: 35,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.3,
-                    ),
-                    SizedBox(
-                      width: 103,
-                      height: 36,
-                      child: ElevatedButton(
-                        onPressed: () async{
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      SizedBox(
+                        width: 103,
+                        height: 36,
+                        child: ElevatedButton(
+                          onPressed: () async {
                           final email = _email.text;
                           final password = _password.text;
                           if (email.isEmpty || password.isEmpty){
@@ -315,35 +317,39 @@ class _FirstPageState extends State<FirstPage> {
                             await showErrorDialog(context, e.toString());
                             }
                           } 
-                        },
-                        style: ElevatedButton.styleFrom(
-                            shadowColor: blueclr,
-                            elevation: 4,
-                            primary: blueclr,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            Text(
-                              "Next",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontFamily: "Poppins",
-                                fontWeight: FontWeight.w500,
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shadowColor: blueclr,
+                              elevation: 4,
+                              primary: blueclr,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "Next",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: "Poppins",
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            Icon(Icons.arrow_right),
-                          ],
+                              Icon(Icons.arrow_right),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      SizedBox(
+                        width: 0.03 * size.width,
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           // const SizedBox(
@@ -363,43 +369,45 @@ class _FirstPageState extends State<FirstPage> {
               ),
             ),
           ),
-          const SizedBox(height: 80,),
+          const SizedBox(
+            height: 50,
+          ),
           Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children:  <Widget>[
-                      const SizedBox(width: 20,),
-                      InkWell(
-                        onTap: () async{
-                          await FirebaseAuth.instance.signOut();
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            loginRoute, 
-                            (_) => false
-                          );
-                        },
-                        child: Container(
-                          width: 140,
-                          child: Row(
-                            children: const [
-                              Icon(Icons.exit_to_app,
-                              size: 40,
-                                  color: Color.fromRGBO(255, 97, 97, 100)),
-                            
-                          SizedBox(width: 10.0),
-                          Text(
-                            "Sign Out",
-                            style:
-                                TextStyle(color: Color.fromRGBO(255, 97, 97, 100),fontSize: 20,fontWeight: FontWeight.bold),
-                          ),],
-                          ),
-                        ),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(
+                width: 20,
+              ),
+              InkWell(
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(loginRoute, (_) => false);
+                },
+                child: Container(
+                  width: 140,
+                  child: Row(
+                    children: const [
+                      Icon(Icons.exit_to_app,
+                          size: 40, color: Color.fromRGBO(255, 97, 97, 100)),
+                      SizedBox(width: 10.0),
+                      Text(
+                        "Sign Out",
+                        style: TextStyle(
+                            color: Color.fromRGBO(255, 97, 97, 100),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      )
                     ],
                   ),
-
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              )
+            ],
+          ),
         ],
       ),
     );
@@ -415,13 +423,13 @@ class RadioGroup extends StatefulWidget {
 
 class RadioGroupWidget extends State {
   // Default Radio Button Selected Item When App Starts.
-  
 
   // Group Value for Radio Button.
   int id = 1;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Column(children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -446,8 +454,8 @@ class RadioGroupWidget extends State {
               });
             },
           ),
-          const SizedBox(
-            width: 58,
+          SizedBox(
+            width: 0.03 * size.width,
           ),
           const Text(
             "docteur:",

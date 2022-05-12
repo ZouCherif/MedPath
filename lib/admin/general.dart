@@ -638,7 +638,7 @@ class _UserinfoState extends State<Userinfo> {
                                       'last name' : _secondname.text,
                                       'place of birth' : _placeofbirth.text,
                                       'phone number' : _phone.text,
-                                      'father name' : _fathername.text
+                                      'father name' : _fathername.text,
                                     });
                                     final role = await getRole(widget.userid);
                                     if (role == 'patient'){

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:real_version/patient/widgets/app_data.dart';
-import 'package:real_version/patient/widgets/visit_card.dart';
+import '../widgets/app_data.dart';
+import '../widgets/visit_card.dart';
 import 'navBar.dart';
-import 'package:real_version/patient/screens/notifications_screen.dart';
+import 'notifications_screen.dart';
+
 
 class VisitScreen extends StatelessWidget {
   const VisitScreen({Key? key}) : super(key: key);
@@ -48,19 +49,20 @@ class VisitScreen extends StatelessWidget {
           height: size.height,
           width: size.width,
           child: InkWell(
+            onTap: () {},
             child: GridView(
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: size.height,
                   childAspectRatio: 7 / 8,
                   mainAxisExtent: 225),
               children: cards_data
-                  .map((cards_data) => VisitCard(
-                      cards_data.fullName,
-                      cards_data.specialite,
-                      cards_data.imageUrl,
-                      cards_data.rapport,
-                      cards_data.datee,
-                      cards_data.localisation))
+                  .map((cardsData) => VisitCard(
+                      cardsData.fullName,
+                      cardsData.specialite,
+                      cardsData.imageUrl,
+                      cardsData.rapport,
+                      cardsData.datee,
+                      cardsData.localisation))
                   .toList(),
             ),
           ),
