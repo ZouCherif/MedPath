@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:real_version/patient/models/visit.dart';
 import 'package:real_version/patient/widgets/app_data.dart';
 import 'package:real_version/patient/widgets/visit_card.dart';
 import 'navBar.dart';
 import 'package:real_version/patient/screens/notifications_screen.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class VisitScreen extends StatelessWidget {
   const VisitScreen({Key? key}) : super(key: key);
@@ -13,7 +11,7 @@ class VisitScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        drawer: NavBar(),
+        drawer: const NavBar(),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,

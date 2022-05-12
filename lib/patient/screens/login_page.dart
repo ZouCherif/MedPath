@@ -3,9 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:real_version/const/routes.dart';
-import 'package:real_version/docteur/screens/doc_loginpage.dart';
 import 'package:real_version/utilities/show_error_dialog.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -181,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         try{
                           await FirebaseAuth.instance.signInWithEmailAndPassword(
                             email: email,  
-                              password: password,
+                            password: password,
                           );
                           final user = FirebaseAuth.instance.currentUser;
                           if (user!.emailVerified){
@@ -213,9 +211,29 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             }
                           }else{
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                              verifyEmailRoute, 
-                              (route) => false
+                            showDialog(
+                              context: context, 
+                              builder: (context){
+                                return AlertDialog(
+                                  title: const Text('An error occured'),
+                                  content: const Text("you didn't verify your emal"),
+                                  actions:[
+                                    TextButton(
+                                      onPressed: () async{
+                                        await user.sendEmailVerification();
+                                        Navigator.of(context).pop();
+                                      }, 
+                                      child: const Text('send email verification')
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }, 
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
                             );
                           }
                           
@@ -254,29 +272,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 102),
-              ToggleSwitch(
-                minWidth: 147.0,
-                minHeight: 52,
-                cornerRadius: 20.0,
-                activeBgColors: [
-                  [color],
-                  [color]
-                ],
-                fontSize: 22.0,
-                activeFgColor: Colors.white,
-                inactiveBgColor: Colors.white,
-                inactiveFgColor: const Color.fromRGBO(196, 196, 196, 100),
-                initialLabelIndex: 0,
-                totalSwitches: 2,
-                labels: const ['Patient', 'Doctor'],
-                radiusStyle: true,
-                onToggle: (index) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const DocLoginScreen()));
-                    print('switched to: $index');
-                  },
-              ),
             ],
           ),
         ),

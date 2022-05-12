@@ -1,16 +1,16 @@
+// ignore_for_file: file_names
+
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
-import 'navBar.dart';
-import 'notifications_screen.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+class DocSettingsScreen extends StatefulWidget {
+  const DocSettingsScreen({Key? key}) : super(key: key);
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  State<DocSettingsScreen> createState() => _DocSettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _DocSettingsScreenState extends State<DocSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -40,7 +40,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       backgroundColor: Colors.blue.withOpacity(0.04),
-      drawer: const NavBar(),
       appBar: AppBar(
         elevation: 0.0,
         iconTheme: const IconThemeData(color: Color.fromARGB(156, 6, 37, 70)),
@@ -55,19 +54,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
         backgroundColor: Colors.blue.withOpacity(0.00),
-        actions: [
-          Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const NotificationsPage()));
-                },
-                child: const Icon(
-                  Icons.notifications,
-                ),
-              ))
-        ],
         actionsIconTheme:
             const IconThemeData(color: Color.fromARGB(156, 6, 37, 70)),
       ),

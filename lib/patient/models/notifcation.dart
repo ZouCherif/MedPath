@@ -1,7 +1,7 @@
-class notifs {
+class Notifs {
   final String docName;
   final String text;
   final String btnText;
 
-  const notifs(this.docName, this.text, this.btnText);
+  const Notifs(this.docName, this.text, this.btnText);
 }

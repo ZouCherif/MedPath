@@ -2,4 +2,6 @@ String loginRoute = '/login/';
 String registerRoute = '/register/';
 String searchRoute = '/search/';
 String profilRoute = '/profil/';
-String verifyEmailRoute = '/verify/';
+String generalinfo = '/general/';
+String patientinfo = '/patientinfo/';
+String docteurinfo = '/docteurinfo/';

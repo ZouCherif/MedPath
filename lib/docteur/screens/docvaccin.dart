@@ -1,17 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:real_version/patient/screens/vaccin_screen.dart';
+// ignore_for_file: sized_box_for_whitespace
 
-import '../../patient/screens/navBar.dart';
+import 'package:flutter/material.dart';
 import '../../patient/widgets/vaccin_card.dart';
 
-class docvaccin extends StatefulWidget {
-  const docvaccin({Key? key}) : super(key: key);
+class Docvaccin extends StatefulWidget {
+  const Docvaccin({Key? key}) : super(key: key);
 
   @override
-  State<docvaccin> createState() => _docvaccinState();
+  State<Docvaccin> createState() => _DocvaccinState();
 }
 
-class _docvaccinState extends State<docvaccin> {
+class _DocvaccinState extends State<Docvaccin> {
   var vaccinName = "Covid 19 vaccin";
   var myMenuItems = <String>[
     'Profile',
@@ -130,7 +129,7 @@ class _docvaccinState extends State<docvaccin> {
                               shadowColor:
                                   const Color.fromRGBO(64, 96, 131, 100),
                               elevation: 0,
-                              primary: Color.fromARGB(156, 36, 68, 100),
+                              primary: const Color.fromARGB(156, 36, 68, 100),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
 

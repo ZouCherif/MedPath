@@ -39,7 +39,7 @@ const cards_data = [
       "Lorem Ipsum issimply dummy text of thsssssssslqkhfqslflkqsfjmqsjfùljqsmlfjlmqsjflqsjopthmlequstopmqsjlsfjmlqsjfoùqshùogjmlqsghqsgmohqslghjmqsjfmojqsfe printing and typesetting industry. Lorem Ipsum has been the industry's"),
 ];
 const notif_data = [
-  notifs('bachiri mehdi ', 'added a new note', 'accept'),
-  notifs('bachiri mehdi ', 'added a new note', 'accept'),
-  notifs('bachiri mehdi ', 'added a new note', 'accept'),
+  Notifs('bachiri mehdi ', 'added a new note', 'accept'),
+  Notifs('bachiri mehdi ', 'added a new note', 'accept'),
+  Notifs('bachiri mehdi ', 'added a new note', 'accept'),
 ];

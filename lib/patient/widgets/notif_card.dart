@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import '../models/notifcation.dart';
 
@@ -13,12 +15,12 @@ class NotifCard extends StatelessWidget {
     return Container(
       height: 89,
       child: Column(children: [
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Row(
           children: [
-            SizedBox(width: 75.0),
+            const SizedBox(width: 75.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -39,7 +41,7 @@ class NotifCard extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               width: 55,
             ),
             Container(
@@ -74,7 +76,7 @@ class NotifCard extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 23.5,
         ),
         Container(
@@ -82,10 +84,10 @@ class NotifCard extends StatelessWidget {
           height: 1,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Color(0xffe9e9e9),
+            color: const Color(0xffe9e9e9),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
       ]),

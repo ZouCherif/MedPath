@@ -16,7 +16,14 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
+  /* bool _color = false;
+  @override
+  void initState() {
+    super.initState();
+    _color = true;
+  }*/
   final padding = const EdgeInsets.symmetric(horizontal: 20);
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -29,7 +36,36 @@ class _NavBarState extends State<NavBar> {
             color: Colors.white,
             child: ListView(
               children: [
-                const SizedBox(height: 100),
+                const SizedBox(
+                  height: 10,
+                ),
+                InkWell(
+                  onTap: () async{
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      loginRoute, 
+                      (_) => false
+                    ); 
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const <Widget>[
+                      Icon(Icons.exit_to_app,
+                          color: Color.fromRGBO(255, 97, 97, 100)),
+                      SizedBox(width: 10.0),
+                      Text(
+                        "Sign Out",
+                        style:
+                            TextStyle(color: Color.fromRGBO(255, 97, 97, 100)),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 60),
                 Padding(
                   padding: padding,
                   child: buildMenuItem(
@@ -85,16 +121,7 @@ class _NavBarState extends State<NavBar> {
                     icon: Icons.settings_outlined,
                     onClicked: () => selectedItem(context, 3),
                   ),
-                ),
-                TextButton(onPressed: ()async{
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    loginRoute, 
-                    (_) => false
-                  );              
-                  }, 
-                  child: const Text('logout'),
-                ),
+                )
               ],
             ),
           )),
@@ -128,12 +155,12 @@ class _NavBarState extends State<NavBar> {
             .push(MaterialPageRoute(builder: (context) => const VisitScreen()));
         break;
       case 2:
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const VaccinScreen()));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const VaccinScreen()));
         break;
       case 0:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ProfilPage1()));
+            .push(MaterialPageRoute(builder: (context) => const ProfilPage1()));
         break;
       case 3:
         Navigator.of(context).push(

@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 
@@ -94,7 +96,7 @@ class _CardVaccinState extends State<CardVaccin> {
         //     leading: CircleAvatar(child: Image.asset("assets/images/devs.jpg")),
         title: Text(
           "${widget.nomdevac}",
-          style: TextStyle(
+          style: const TextStyle(
               color: Color.fromARGB(156, 6, 37, 70),
               fontSize: 19,
               fontWeight: FontWeight.w600),
@@ -134,14 +136,14 @@ class LesDose extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 0,
                   blurRadius: 3,
-                  offset: Offset(1, 4), // changes position of shadow
+                  offset: const Offset(1, 4), // changes position of shadow
                 ),
               ],
               //border: Border.all(width: 0.01),
               color: ouinn == false
-                  ? Color.fromARGB(255, 193, 255, 254)
-                  : Color.fromARGB(255, 25, 207, 204),
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+                  ? const Color.fromARGB(255, 193, 255, 254)
+                  : const Color.fromARGB(255, 25, 207, 204),
+              borderRadius: const BorderRadius.all(const Radius.circular(10))),
           child: Row(
             children: [
               Container(
@@ -158,7 +160,7 @@ class LesDose extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 16,
                               color: ouinn == false
-                                  ? Color.fromARGB(255, 1, 128, 125)
+                                  ? const Color.fromARGB(255, 1, 128, 125)
                                   : Colors.white),
                         ),
                       ),
@@ -170,7 +172,7 @@ class LesDose extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 14,
                             color: ouinn == false
-                                ? Color.fromARGB(255, 1, 128, 125)
+                                ? const Color.fromARGB(255, 1, 128, 125)
                                 : Colors.white),
                       ),
                     ),
@@ -183,7 +185,7 @@ class LesDose extends StatelessWidget {
                 // color: Colors.amber,
                 child: Icon(ouinn == false ? Icons.close : Icons.check,
                     color: ouinn == false
-                        ? Color.fromARGB(255, 1, 128, 125)
+                        ? const Color.fromARGB(255, 1, 128, 125)
                         : Colors.white),
               ),
             ],

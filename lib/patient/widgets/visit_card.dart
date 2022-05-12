@@ -1,5 +1,7 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-import 'package:real_version/patient/widgets/visit_card.dart';
+
 
 class VisitCard extends StatelessWidget {
   final String fullName;
@@ -8,7 +10,7 @@ class VisitCard extends StatelessWidget {
   final String rapport;
   final String datee;
   final String localisation;
-  VisitCard(this.fullName, this.specialite, this.imageUrl, this.datee,
+  const VisitCard(this.fullName, this.specialite, this.imageUrl, this.datee,
       this.localisation, this.rapport);
   @override
   Widget build(BuildContext context) {

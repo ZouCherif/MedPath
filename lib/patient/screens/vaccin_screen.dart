@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:real_version/patient/widgets/visit_card.dart';
 import '../widgets/vaccin_card.dart';
 import 'navBar.dart';
 import 'package:real_version/patient/screens/notifications_screen.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class VaccinScreen extends StatefulWidget {
   const VaccinScreen({Key? key}) : super(key: key);
@@ -18,7 +16,7 @@ class _VaccinScreenState extends State<VaccinScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.blue.withOpacity(0.04),
-      drawer: NavBar(),
+      drawer: const NavBar(),
       appBar: AppBar(
         backgroundColor: Colors.blue.withOpacity(0.00),
         elevation: 0.0,
