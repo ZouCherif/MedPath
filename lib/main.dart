@@ -38,7 +38,6 @@ class MyApp extends StatelessWidget {
         registerRoute :(context) => const FirstPage(),
         loginRoute : (context) => const LoginScreen(),
         patientinfo :(context) => const PatientInformations(),
-        docteurinfo :(context) => const DocInformations(),
       },
     );
   }

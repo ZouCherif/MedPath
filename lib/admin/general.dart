@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
 
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:real_version/const/routes.dart';
 import 'package:real_version/utilities/get_role.dart';
 import '../colors.dart';
+import '../utilities/show_error_dialog.dart';
+import 'doctor_informations.dart';
 
-// ignore: must_be_immutable
 class Userinfo extends StatefulWidget {
   String userid;
   Userinfo({required this.userid, Key? key}) : super(key: key);
@@ -25,6 +24,7 @@ class _UserinfoState extends State<Userinfo> {
   late final TextEditingController _placeofbirth;
   late final TextEditingController _phone;
   late final TextEditingController _fathername;
+  String? formattedDate;
   int id = 1;
   String radioButtonItem = 'Patient';
   TextEditingController dateinput = TextEditingController();
@@ -49,13 +49,14 @@ class _UserinfoState extends State<Userinfo> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       color: bgcolor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 335, vertical: 100),
+        padding: EdgeInsets.symmetric(
+            horizontal: 0.15 * size.width, vertical: 0.08 * size.height),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
@@ -65,24 +66,29 @@ class _UserinfoState extends State<Userinfo> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               iconTheme: const IconThemeData(color: bluefnc),
-              toolbarHeight: 100,
+              toolbarHeight: 0.1 * size.height,
               shadowColor: Colors.transparent,
               backgroundColor: Colors.transparent,
-              title: const Text(
-                "General User informations",
-                style: TextStyle(
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  color: bluefnc,
+              title: const FittedBox(
+                child: Text(
+                  "General User informations",
+                  style: TextStyle(
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: bluefnc,
+                  ),
                 ),
               ),
               centerTitle: true,
             ),
             body: Center(
               child: Container(
-                width: 525,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                width: 0.46 * size.width,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Center(
                       child: Column(
@@ -94,8 +100,8 @@ class _UserinfoState extends State<Userinfo> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                height: 42,
-                                width: 215,
+                                height: 0.046 * size.height,
+                                width: 0.20 * size.width,
                                 child: TextField(
                                   controller: _firstname,
                                   decoration: InputDecoration(
@@ -118,22 +124,21 @@ class _UserinfoState extends State<Userinfo> {
                                       ),
                                     ),
                                     labelText: "First Name",
-
                                     labelStyle: const TextStyle(
                                       color: bluefnc,
                                       fontFamily: 'poppins',
-                                      fontSize: 14,
+                                      fontSize: 11,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 11,
+                              SizedBox(
+                                width: 0.008 * size.width,
                               ),
                               Container(
-                                height: 42,
-                                width: 215,
+                                height: 0.046 * size.height,
+                                width: 0.20 * size.width,
                                 child: TextField(
                                   controller: _secondname,
                                   decoration: InputDecoration(
@@ -164,7 +169,7 @@ class _UserinfoState extends State<Userinfo> {
                                     labelStyle: const TextStyle(
                                       color: bluefnc,
                                       fontFamily: 'poppins',
-                                      fontSize: 14,
+                                      fontSize: 11,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -177,7 +182,7 @@ class _UserinfoState extends State<Userinfo> {
                             height: 11,
                           ),
                           Container(
-                              height: 65,
+                              height: 0.049 * size.height,
                               width: 440,
                               child: Center(
                                   child: TextField(
@@ -200,7 +205,8 @@ class _UserinfoState extends State<Userinfo> {
                                   ),
                                   icon: const Icon(Icons
                                       .calendar_today), //icon of text field
-                                  labelText: "Enter Date Of Birth", //label text of field
+                                  labelText:
+                                      "Enter Date Of Birth", //label text of field
                                   labelStyle: const TextStyle(
                                     color: bluefnc,
                                     fontFamily: 'poppins',
@@ -221,7 +227,7 @@ class _UserinfoState extends State<Userinfo> {
                                   if (pickedDate != null) {
                                     print(
                                         pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                                    String formattedDate =
+                                    formattedDate =
                                         DateFormat('yyyy-MM-dd')
                                             .format(pickedDate);
                                     print(
@@ -230,7 +236,7 @@ class _UserinfoState extends State<Userinfo> {
 
                                     setState(() {
                                       dateinput.text =
-                                          formattedDate; //set output date to TextField value.
+                                          formattedDate!; //set output date to TextField value.
                                     });
                                   } else {
                                     print("Date is not selected");
@@ -242,7 +248,7 @@ class _UserinfoState extends State<Userinfo> {
                             height: 11,
                           ),
                           Container(
-                            height: 42,
+                            height: 0.046 * size.height,
                             width: 440,
                             child: TextField(
                               controller: _placeofbirth,
@@ -283,7 +289,7 @@ class _UserinfoState extends State<Userinfo> {
                             height: 11,
                           ),
                           Container(
-                            height: 42,
+                            height: 0.046 * size.height,
                             width: 440,
                             child: TextField(
                               controller: _phone,
@@ -325,49 +331,54 @@ class _UserinfoState extends State<Userinfo> {
                           ),
 
                           //this next row is for choosing sexe
-                          Row(
-                            children: const [
-                              SizedBox(
-                                width: 45,
-                              ),
-                              Text(
-                                " Sexe :",
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  color: bluefnc,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
+                          Container(
+                            width: 0.44 * size.width,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: size.width * 0.1,
                                 ),
-                              ),
-                            ],
+                                const Text(
+                                  " Sexe :",
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    color: bluefnc,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(
                             height: 3,
                           ),
 
                           Container(
-                            width: 525,
+                            width: 0.5 * size.width,
                             height: 42,
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const SizedBox(
-                                  width: 40,
-                                ),
+                                SizedBox(width: size.width * 0.003),
                                 Container(
-                                  width: 140.50,
-                                  height: 43.50,
+                                  height: 0.046 * size.height,
+                                  width: 0.235 * size.width,
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        width: 140.50,
-                                        height: 43.50,
+                                        height: 0.046 * size.height,
+                                        width: 0.235 * size.width,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -384,20 +395,21 @@ class _UserinfoState extends State<Userinfo> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                              MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            const Text(
-                                              "Male",
-                                              style: TextStyle(
-                                                color: Color(0xff406083),
-                                                fontSize: 13,
-                                                fontFamily: "Poppins",
-                                                fontWeight: FontWeight.w600,
+                                            const FittedBox(
+                                              child: Text(
+                                                "Male",
+                                                style: TextStyle(
+                                                  color: Color(0xff406083),
+                                                  fontSize: 13,
+                                                  fontFamily: "Poppins",
+                                                  fontWeight: FontWeight.w600,
+                                                ),
                                               ),
                                             ),
-                                            const SizedBox(width: 57),
                                             Container(
                                               height: 21,
                                               width: 21,
@@ -421,19 +433,19 @@ class _UserinfoState extends State<Userinfo> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(width: 12),
                                 Container(
-                                  width: 140.50,
-                                  height: 43.50,
+                                  height: 0.046 * size.height,
+                                  width: 0.22 * size.width,
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: 140.50,
-                                        height: 43.50,
+                                        height: 0.046 * size.height,
+                                        width: 0.22 * size.width,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -444,26 +456,27 @@ class _UserinfoState extends State<Userinfo> {
                                           color: const Color(0x0cd1d1d1),
                                         ),
                                         padding: const EdgeInsets.only(
-                                          left: 15,
-                                          right: 17,
+                                          left: 7,
+                                          right: 15,
                                         ),
                                         child: Row(
-                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                              MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            const Text(
-                                              "female",
-                                              style: TextStyle(
-                                                color: Color(0xff406083),
-                                                fontSize: 13,
-                                                fontFamily: "Poppins",
-                                                fontWeight: FontWeight.w600,
+                                            const FittedBox(
+                                              child: Text(
+                                                "female",
+                                                style: TextStyle(
+                                                  color: Color(0xff406083),
+                                                  fontSize: 11,
+                                                  fontFamily: "Poppins",
+                                                  fontWeight: FontWeight.w600,
+                                                ),
                                               ),
                                             ),
-                                            const SizedBox(width: 34),
                                             Container(
                                               height: 21,
                                               width: 21,
@@ -495,8 +508,8 @@ class _UserinfoState extends State<Userinfo> {
                             height: 11,
                           ),
                           Container(
-                            height: 42,
-                            width: 440,
+                            height: 0.046 * size.height,
+                            width: 0.20 * size.width,
                             child: TextField(
                               controller: _fathername,
                               decoration: InputDecoration(
@@ -524,7 +537,7 @@ class _UserinfoState extends State<Userinfo> {
                                 labelStyle: const TextStyle(
                                   color: bluefnc,
                                   fontFamily: 'poppins',
-                                  fontSize: 14,
+                                  fontSize: 11,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -618,33 +631,40 @@ class _UserinfoState extends State<Userinfo> {
                           //     ),
                           //   ],
                           // ),
-                          const SizedBox(
-                            height: 34,
+                          SizedBox(
+                            height: 0.03 * size.height,
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const SizedBox(
-                                width: 380,
-                              ),
                               SizedBox(
                                 width: 103,
                                 height: 36,
                                 child: ElevatedButton(
-                                  onPressed: () async{
-                                    // final newuser = FirebaseAuth.instance.currentUser;
-                                    // final newuserid = newuser!.uid;
-                                    FirebaseFirestore.instance.collection('users').doc(widget.userid).update({
-                                      'first name' : _firstname.text,
-                                      'last name' : _secondname.text,
-                                      'place of birth' : _placeofbirth.text,
-                                      'phone number' : _phone.text,
-                                      'father name' : _fathername.text,
-                                    });
-                                    final role = await getRole(widget.userid);
-                                    if (role == 'patient'){
-                                      Navigator.of(context).pushNamed(patientinfo);
+                                  onPressed: () async {
+                                    if (_firstname.text.isEmpty || _secondname.text.isEmpty || _phone.text.isEmpty || _placeofbirth.text.isEmpty || _fathername.text.isEmpty){
+                                      await showErrorDialog(context, "please enter all the information");
                                     }else{
-                                      Navigator.of(context).pushNamed(docteurinfo);
+                                      try{
+                                        FirebaseFirestore.instance.collection('users').doc(widget.userid).update({
+                                          'first name' : _firstname.text,
+                                          'last name' : _secondname.text,
+                                          'sexe' : radioButtonItem,
+                                          'date of birth' : formattedDate,
+                                          'place of birth' : _placeofbirth.text,
+                                          'phone number' : _phone.text,
+                                          'father name' : _fathername.text,
+                                        });
+                                        final role = await getRole(widget.userid);
+                                        if (role == 'patient'){
+                                          Navigator.of(context).pushNamed(patientinfo);
+                                        }else{
+                                          // Navigator.of(context).pushNamed(docteurinfo);
+                                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => DocInformations(userid: widget.userid,),));
+                                        }
+                                    }catch (e){
+                                      await showErrorDialog(context,'Error: ${e.toString()}');
+                                    }
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(

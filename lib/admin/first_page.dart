@@ -9,6 +9,7 @@ import 'package:real_version/utilities/show_error_dialog.dart';
 
 import 'general.dart';
 
+
 String radioButtonItem = 'patient';
 
 enum SingingCharacter { lafayette, jefferson }
@@ -294,10 +295,6 @@ class _FirstPageState extends State<FirstPage> {
                           }else{
                             try{
                             final userCredential = await register(email, password);
-                            // final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                            //   email: email,
-                            //   password: password,
-                            // );
                             final userid = userCredential.user?.uid;
                             FirebaseFirestore.instance.collection('users').doc(userid).set({'role' : radioButtonItem});
                             // final user = FirebaseAuth.instance.currentUser;
@@ -485,7 +482,7 @@ class RadioGroupWidget extends State {
 
 Future<UserCredential> register(String email, String password) async {
     FirebaseApp app = await Firebase.initializeApp(
-        name: 'Secondary', options: Firebase.app().options);
+        name: 'Medpath', options: Firebase.app().options);
         UserCredential userCredential = await FirebaseAuth.instanceFor(app: app)
         .createUserWithEmailAndPassword(email: email, password: password);
     
