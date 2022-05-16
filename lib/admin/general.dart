@@ -1,15 +1,15 @@
 // ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:real_version/const/routes.dart';
 import 'package:real_version/utilities/get_role.dart';
 import '../colors.dart';
 import '../utilities/show_error_dialog.dart';
 import 'doctor_informations.dart';
+import 'patient_informations.dart';
 
+// ignore: must_be_immutable
 class Userinfo extends StatefulWidget {
   String userid;
   Userinfo({required this.userid, Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _UserinfoState extends State<Userinfo> {
   late final TextEditingController _fathername;
   String? formattedDate;
   int id = 1;
-  String radioButtonItem = 'Patient';
+  String radioButtonItem = 'male';
   TextEditingController dateinput = TextEditingController();
   @override
   void initState() {
@@ -657,7 +657,8 @@ class _UserinfoState extends State<Userinfo> {
                                         });
                                         final role = await getRole(widget.userid);
                                         if (role == 'patient'){
-                                          Navigator.of(context).pushNamed(patientinfo);
+                                          // Navigator.of(context).pushNamed(patientinfo);
+                                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => PatientInformations(userid: widget.userid,),));
                                         }else{
                                           // Navigator.of(context).pushNamed(docteurinfo);
                                           Navigator.of(context).push(MaterialPageRoute(builder: (context) => DocInformations(userid: widget.userid,),));

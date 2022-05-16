@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, must_be_immutable
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,8 @@ import 'package:real_version/patient/screens/vaccin_screen.dart';
 import 'package:real_version/patient/screens/visit_screen.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({Key? key}) : super(key: key);
+  String id;
+  NavBar({required this.id, Key? key}) : super(key: key);
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -152,19 +153,18 @@ class _NavBarState extends State<NavBar> {
     switch (index) {
       case 1:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const VisitScreen()));
+            .push(MaterialPageRoute(builder: (context) =>  VisitScreen(id: widget.id)));
         break;
       case 2:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const VaccinScreen()));
+            .push(MaterialPageRoute(builder: (context) =>  VaccinScreen(id: widget.id)));
         break;
       case 0:
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const ProfilPage1()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  ProfilPage1(id: widget.id)));
         break;
       case 3:
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const SettingsScreen()));
+            MaterialPageRoute(builder: (context) =>  SettingsScreen(id: widget.id)));
         break;
     }
   }

@@ -2,14 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:real_version/admin/doctor_informations.dart';
 import 'package:real_version/admin/first_page.dart';
 import 'package:real_version/const/routes.dart';
 import 'package:real_version/docteur/screens/search.dart';
 import 'package:real_version/patient/screens/login_page.dart';
 import 'package:real_version/patient/screens/profile_page.dart';
 import 'package:real_version/splash.dart';
-import 'admin/patient_informations.dart';
 import 'firebase_options.dart';
 import 'utilities/get_role.dart';
 void main() async{
@@ -33,11 +31,9 @@ class MyApp extends StatelessWidget {
       ),
       home: const Splash(),
       routes: {
-        profilRoute : (context) => const ProfilPage1(),
         searchRoute :(context) => const SearchPatient(),
         registerRoute :(context) => const FirstPage(),
         loginRoute : (context) => const LoginScreen(),
-        patientinfo :(context) => const PatientInformations(),
       },
     );
   }
@@ -60,9 +56,10 @@ class Homepage extends StatelessWidget {
                 return FutureBuilder(
                   future: getRole(user.uid),
                   builder: (context, snapshot){
+                    //log(snapshot.data.toString());
                     switch(snapshot.data){
                       case 'admin' : return const FirstPage();
-                      case 'patient' : return const ProfilPage1();
+                      case 'patient' : return ProfilPage1(id: user.uid,);
                       case 'docteur' : return const SearchPatient();
                       default: return const Scaffold(
                         body: Center(child: CircularProgressIndicator())

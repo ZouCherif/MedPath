@@ -296,7 +296,8 @@ class _FirstPageState extends State<FirstPage> {
                             try{
                             final userCredential = await register(email, password);
                             final userid = userCredential.user?.uid;
-                            FirebaseFirestore.instance.collection('users').doc(userid).set({'role' : radioButtonItem});
+                            FirebaseFirestore.instance.collection('users').doc(userid).set({'role' : radioButtonItem,
+                            'id' : userid});
                             // final user = FirebaseAuth.instance.currentUser;
                             await userCredential.user?.sendEmailVerification();
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Userinfo(userid: userid!,),));

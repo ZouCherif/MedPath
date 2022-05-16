@@ -6,54 +6,65 @@ import '../colors.dart';
 
 String postifOrNegatif = "Positif or negatif";
 
+// ignore: must_be_immutable
 class PatientInformations extends StatefulWidget {
-  const PatientInformations({Key? key}) : super(key: key);
+  String userid;
+   PatientInformations({required this.userid, Key? key}) : super(key: key);
 
   @override
   State<PatientInformations> createState() => _PatientInformationsState();
 }
 
 class _PatientInformationsState extends State<PatientInformations> {
-  String radioButtonItem = 'Patient';
   // ignore: non_constant_identifier_names
-  String dropdownvalue = 'Positif';
+  String dropdownvalue = 'O +';
 
   // List of items in our dropdown menu
   var items = [
-    'Positif',
-    'negatif',
+    'O +',
+    'O -',
+    'A +',
+    'A -',
+    'B +',
+    'B -',
+    'AB +',
+    'AB -',
   ];
   late int height = 10;
   late int weight = 10;
   int id = 1;
 
-  void _incrementCount() {
-    setState(() {
-      height++;
-    });
-  }
+  // void _incrementCount() {
+  //   setState(() {
+  //     height++;
+  //   });
+  // }
 
-  void _decrementCount() {
-    setState(() => height--);
-  }
+  // void _decrementCount() {
+  //   setState(() => height--);
+  // }
 
-  void _incrementCount1() {
-    setState(() {
-      weight++;
-    });
-  }
+  // void _incrementCount1() {
+  //   setState(() {
+  //     weight++;
+  //   });
+  // }
 
-  void _decrementCount1() {
-    setState(() => weight--);
-  }
+  // void _decrementCount1() {
+  //   setState(() => weight--);
+  // }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       color: bgcolor,
       child: Padding(
-        padding:
-            const EdgeInsets.only(left: 333, right: 333, bottom: 100, top: 100),
+        padding: EdgeInsets.only(
+            top: 0.09 * size.height,
+            bottom: 0.25 * size.height,
+            right: 0.15 * size.width,
+            left: 0.15 * size.width),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
@@ -80,7 +91,8 @@ class _PatientInformationsState extends State<PatientInformations> {
             body: SafeArea(
               child: Center(
                 child: Container(
-                  width: 525,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  width: 0.5 * size.width,
                   child: Column(
                     children: [
                       Center(
@@ -94,7 +106,7 @@ class _PatientInformationsState extends State<PatientInformations> {
                               height: 11,
                             ),
                             Container(
-                              height: 42,
+                              height: 0.046 * size.height,
                               width: 440,
                               child: TextField(
                                 decoration: InputDecoration(
@@ -123,7 +135,7 @@ class _PatientInformationsState extends State<PatientInformations> {
                                   hintStyle: const TextStyle(
                                     color: bluefnc,
                                     fontFamily: 'poppins',
-                                    fontSize: 14,
+                                    fontSize: 11,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -137,8 +149,8 @@ class _PatientInformationsState extends State<PatientInformations> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: 42,
-                                  width: 215,
+                                  height: 0.046 * size.height,
+                                  width: 0.20 * size.width,
                                   child: TextField(
                                     decoration: InputDecoration(
                                       fillColor: const Color.fromARGB(
@@ -168,7 +180,7 @@ class _PatientInformationsState extends State<PatientInformations> {
                                       hintStyle: const TextStyle(
                                         color: bluefnc,
                                         fontFamily: 'poppins',
-                                        fontSize: 14,
+                                        fontSize: 11,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -178,8 +190,8 @@ class _PatientInformationsState extends State<PatientInformations> {
                                   width: 11,
                                 ),
                                 Container(
-                                  height: 42,
-                                  width: 215,
+                                  height: 0.046 * size.height,
+                                  width: 0.20 * size.width,
                                   child: TextField(
                                     decoration: InputDecoration(
                                       fillColor: const Color.fromARGB(
@@ -209,7 +221,7 @@ class _PatientInformationsState extends State<PatientInformations> {
                                       hintStyle: const TextStyle(
                                         color: bluefnc,
                                         fontFamily: 'poppins',
-                                        fontSize: 14,
+                                        fontSize: 11,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -219,7 +231,7 @@ class _PatientInformationsState extends State<PatientInformations> {
                             ),
                             const SizedBox(height: 11),
                             Container(
-                              height: 42,
+                              height: 0.046 * size.height,
                               width: 440,
                               child: TextField(
                                 decoration: InputDecoration(
@@ -247,47 +259,23 @@ class _PatientInformationsState extends State<PatientInformations> {
 
                                   hintStyle: const TextStyle(
                                     color: Color(0xff406083),
-                                    fontSize: 13,
+                                    fontSize: 11,
                                     fontFamily: "Poppins",
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 11,
-                            ),
-                            Row(
-                              children: const [
-                                SizedBox(
-                                  width: 60,
-                                ),
-                                FittedBox(
-                                  child: Text(
-                                    "Group Sanguin: ",
-                                    style: TextStyle(
-                                      color: Color(0xff406083),
-                                      fontSize: 15,
-                                      fontFamily: "Poppins",
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                RadioGroup(),
-                              ],
+                            SizedBox(
+                              height: 0.01 * size.height,
                             ),
 
-                            const SizedBox(
-                              height: 11,
-                            ),
                             Container(
-                              height: 50,
+                              height: 47,
+                              width: 530,
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 200.0, left: 45),
+                                    right: 45.0, left: 45),
                                 child: DropdownButtonFormField2(
                                   scrollbarRadius: const Radius.circular(10),
                                   focusColor: Colors.white,
@@ -308,7 +296,7 @@ class _PatientInformationsState extends State<PatientInformations> {
                                         items,
                                         style: const TextStyle(
                                           color: Color(0xff406083),
-                                          fontSize: 15,
+                                          fontSize: 12,
                                           fontFamily: "Poppins",
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -324,40 +312,43 @@ class _PatientInformationsState extends State<PatientInformations> {
                               ),
                             ),
 
-                            const SizedBox(
-                              height: 27,
+                            SizedBox(
+                              height: 0.02 * size.height,
                             ),
                             Container(
-                              width: 399,
-                              height: 42,
+                              width: 0.45 * size.width,
+                              height: 0.046 * size.height,
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const Text(
-                                    "Height :",
-                                    style: TextStyle(
-                                      color: Color(0xff406083),
-                                      fontSize: 13,
-                                      fontFamily: "Poppins",
-                                      fontWeight: FontWeight.w600,
+                                  const FittedBox(
+                                    child: Text(
+                                      "Height :",
+                                      style: TextStyle(
+                                        color: Color(0xff406083),
+                                        fontSize: 13,
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
-                                  const SizedBox(width: 27),
+                                  const SizedBox(width: 0.006),
                                   Container(
-                                    width: 108.50,
-                                    height: 43.50,
+                                    width: 0.11 * size.width,
+                                    height: 0.046 * size.height,
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
                                         Container(
-                                          width: 108.50,
-                                          height: 50,
+                                          width: 0.11 * size.width,
+                                          height: 0.046 * size.height,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -367,14 +358,10 @@ class _PatientInformationsState extends State<PatientInformations> {
                                             ),
                                             color: const Color(0x0cd1d1d1),
                                           ),
-                                          padding: const EdgeInsets.only(
-                                            top: 11,
-                                            bottom: 10,
-                                          ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                MainAxisAlignment.center,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
@@ -389,62 +376,41 @@ class _PatientInformationsState extends State<PatientInformations> {
                                                   ),
                                                 ),
                                               ),
-                                              const SizedBox(width: 17.45),
-                                              Container(
-                                                height: 23,
-                                                width: 23,
-                                                child: Column(
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        _incrementCount();
-                                                      },
-                                                      child: const Icon(
-                                                        Icons.add,
-                                                        size: 9,
-                                                      ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        _decrementCount();
-                                                      },
-                                                      child: const Icon(
-                                                        Icons.remove,
-                                                        size: 9,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                              SizedBox(
+                                                  width: 0.001 * size.width),
                                             ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(width: 27),
-                                  const Text(
-                                    "Weight :",
-                                    style: TextStyle(
-                                      color: Color(0xff406083),
-                                      fontSize: 13,
-                                      fontFamily: "Poppins",
-                                      fontWeight: FontWeight.w600,
+                                  SizedBox(
+                                    width: 0.01 * size.width,
+                                  ),
+                                  const FittedBox(
+                                    child: Text(
+                                      "Height :",
+                                      style: TextStyle(
+                                        color: Color(0xff406083),
+                                        fontSize: 13,
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
-                                  const SizedBox(width: 27),
+                                  const SizedBox(width: 0.006),
                                   Container(
-                                    width: 108.50,
-                                    height: 43.50,
+                                    width: 0.11 * size.width,
+                                    height: 0.046 * size.height,
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
                                         Container(
-                                          width: 108.50,
+                                          width: 0.11 * size.width,
                                           height: 43.50,
                                           decoration: BoxDecoration(
                                             borderRadius:
@@ -455,53 +421,26 @@ class _PatientInformationsState extends State<PatientInformations> {
                                             ),
                                             color: const Color(0x0cd1d1d1),
                                           ),
-                                          padding: const EdgeInsets.only(
-                                            top: 11,
-                                            bottom: 10,
-                                          ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                MainAxisAlignment.center,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Text(
-                                                weight.toString() + "KG",
-                                                style: const TextStyle(
-                                                  color: Color(0xff0dbed8),
-                                                  fontSize: 13,
-                                                  fontFamily: "Poppins",
-                                                  fontWeight: FontWeight.w700,
+                                              FittedBox(
+                                                child: Text(
+                                                  height.toString() + "CM",
+                                                  style: const TextStyle(
+                                                    color: Color(0xff0dbed8),
+                                                    fontSize: 13,
+                                                    fontFamily: "Poppins",
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
                                               ),
-                                              const SizedBox(width: 24.45),
-                                              Container(
-                                                height: 23,
-                                                width: 23,
-                                                child: Column(
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        _incrementCount1();
-                                                      },
-                                                      child: const Icon(
-                                                        Icons.add,
-                                                        size: 9,
-                                                      ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        _decrementCount1();
-                                                      },
-                                                      child: const Icon(
-                                                        Icons.remove,
-                                                        size: 9,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                              SizedBox(
+                                                  width: 0.001 * size.width),
                                             ],
                                           ),
                                         ),
@@ -511,17 +450,15 @@ class _PatientInformationsState extends State<PatientInformations> {
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 34,
+                            SizedBox(
+                              height: 0.03 * size.height,
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const SizedBox(
-                                  width: 380,
-                                ),
                                 SizedBox(
                                   width: 103,
-                                  height: 36,
+                                  height: 0.040 * size.height,
                                   child: ElevatedButton(
                                     onPressed: () {},
                                     style: ElevatedButton.styleFrom(
@@ -566,120 +503,5 @@ class _PatientInformationsState extends State<PatientInformations> {
         ),
       ),
     );
-  }
-}
-
-class RadioGroup extends StatefulWidget {
-  const RadioGroup({Key? key}) : super(key: key);
-
-  @override
-  RadioGroupWidget createState() => RadioGroupWidget();
-}
-
-class RadioGroupWidget extends State {
-  // Default Radio Button Selected Item When App Starts.
-  String radioButtonItem = 'Patient';
-
-  // Group Value for Radio Button.
-  int id = 1;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Text(
-            'O: ',
-            style: TextStyle(
-              color: Color(0xffb4b4b4),
-              fontSize: 13,
-              fontFamily: "Poppins",
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Radio(
-            activeColor: const Color.fromRGBO(13, 190, 216, 100),
-            value: 1,
-            groupValue: id,
-            onChanged: (val) {
-              setState(() {
-                radioButtonItem = 'O';
-                id = 1;
-              });
-            },
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          const Text(
-            "A :",
-            style: TextStyle(
-              color: Color(0xffb4b4b4),
-              fontSize: 13,
-              fontFamily: "Poppins",
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Radio(
-            activeColor: const Color.fromRGBO(13, 190, 216, 100),
-            value: 2,
-            groupValue: id,
-            onChanged: (val) {
-              setState(() {
-                radioButtonItem = 'Doctor';
-                id = 2;
-              });
-            },
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          const Text(
-            "B :",
-            style: TextStyle(
-              color: Color(0xffb4b4b4),
-              fontSize: 13,
-              fontFamily: "Poppins",
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Radio(
-            activeColor: const Color.fromRGBO(13, 190, 216, 100),
-            value: 3,
-            groupValue: id,
-            onChanged: (val) {
-              setState(() {
-                radioButtonItem = 'B';
-                id = 3;
-              });
-            },
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          const Text(
-            "AB: ",
-            style: TextStyle(
-              color: Color(0xffb4b4b4),
-              fontSize: 13,
-              fontFamily: "Poppins",
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Radio(
-            activeColor: const Color.fromRGBO(13, 190, 216, 100),
-            value: 4,
-            groupValue: id,
-            onChanged: (val) {
-              setState(() {
-                radioButtonItem = 'AB';
-                id = 4;
-              });
-            },
-          ),
-        ],
-      ),
-    ]);
   }
 }

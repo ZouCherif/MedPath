@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:real_version/const/routes.dart';
+import 'package:real_version/patient/screens/profile_page.dart';
 import 'package:real_version/utilities/show_error_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -203,10 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   );
                                 break;
                                 case 'patient':
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                    profilRoute, 
-                                    (route) => false
-                                  );
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfilPage1(id: userID),));
                                 break;
                               }
                             }

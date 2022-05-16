@@ -1,3 +1,8 @@
+
+
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,8 +19,22 @@ class SearchPatient extends StatefulWidget {
 }
 
 class _SearchPatientState extends State<SearchPatient> {
+  late final TextEditingController searchcontroller;
   var color = const Color(0xff0dbed8);
   var doctorName = 'djamel';
+
+
+    @override
+  void initState() {
+    searchcontroller = TextEditingController();
+    super.initState();
+  }
+
+    @override
+  void dispose() {
+    searchcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +147,7 @@ class _SearchPatientState extends State<SearchPatient> {
                   height: 75,
                   width: 321,
                   child: TextField(
+                    controller: searchcontroller,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       labelText: "Search for a patient here",
@@ -168,12 +188,15 @@ class _SearchPatientState extends State<SearchPatient> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15))),
 
-              //MaterialStateProperty.all<RoundedRectangleBorder>(
-              //RoundedRectangleBorder(
-              //borderRadius: BorderRadius.circular(25.0),
-
-              onPressed: () {
-                showDialog(
+              onPressed: () async{
+                if (searchcontroller.text.isNotEmpty){
+                  try{
+                    
+                  }catch (e){
+                    log(e.toString());
+                  }
+                }else{
+                  showDialog(
                     context: context,
                     builder: (context) {
                       return Dialog(
@@ -245,6 +268,8 @@ class _SearchPatientState extends State<SearchPatient> {
                             ),
                           ));
                     });
+                }
+                
               },
               child: const Text(
                 "Search",
@@ -260,4 +285,10 @@ class _SearchPatientState extends State<SearchPatient> {
           ),
         ]));
   }
+}
+
+
+Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> searchByField(String value) async {
+  final data = await FirebaseFirestore.instance.collection('users').where('id', isEqualTo: value).get();
+  return data.docs;
 }

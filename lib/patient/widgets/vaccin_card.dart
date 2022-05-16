@@ -29,7 +29,7 @@ class CardVaccin extends StatefulWidget {
 }
 
 class _CardVaccinState extends State<CardVaccin> {
-  final GlobalKey<ExpansionTileCardState> cardA = new GlobalKey();
+  final GlobalKey<ExpansionTileCardState> cardA = GlobalKey();
   Widget returnedos(int num) {
     switch (num) {
       case 1:
@@ -37,49 +37,46 @@ class _CardVaccinState extends State<CardVaccin> {
           children: [
             LesDose(
               numdose: '1',
-              dateofsoe: '${widget.date1}',
+              dateofsoe: widget.date1,
               ouinn: widget.boolD1,
             ),
           ],
         );
-        break;
       case 2:
         return Row(
           children: [
             LesDose(
               numdose: '1',
-              dateofsoe: '${widget.date1}',
+              dateofsoe: widget.date1,
               ouinn: widget.boolD1,
             ),
             LesDose(
               numdose: '2',
-              dateofsoe: '${widget.date2}',
+              dateofsoe: widget.date2,
               ouinn: widget.boolD2,
             ),
           ],
         );
-        break;
       case 3:
         return Row(
           children: [
             LesDose(
               numdose: '1',
-              dateofsoe: '${widget.date1}',
+              dateofsoe: widget.date1,
               ouinn: widget.boolD1,
             ),
             LesDose(
               numdose: '2',
-              dateofsoe: '${widget.date2}',
+              dateofsoe: widget.date2,
               ouinn: widget.boolD2,
             ),
             LesDose(
               numdose: '3',
-              dateofsoe: '${widget.date3}',
+              dateofsoe: widget.date3,
               ouinn: widget.boolD3,
             )
           ],
         );
-        break;
       default:
         return widget;
     }
@@ -95,7 +92,7 @@ class _CardVaccinState extends State<CardVaccin> {
         key: cardA,
         //     leading: CircleAvatar(child: Image.asset("assets/images/devs.jpg")),
         title: Text(
-          "${widget.nomdevac}",
+          widget.nomdevac,
           style: const TextStyle(
               color: Color.fromARGB(156, 6, 37, 70),
               fontSize: 19,
@@ -168,7 +165,7 @@ class LesDose extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0, left: 0),
                       child: Text(
-                        '$dateofsoe',
+                        dateofsoe,
                         style: TextStyle(
                             fontSize: 14,
                             color: ouinn == false

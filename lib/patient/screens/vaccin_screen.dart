@@ -3,8 +3,10 @@ import '../widgets/vaccin_card.dart';
 import 'navBar.dart';
 import 'package:real_version/patient/screens/notifications_screen.dart';
 
+// ignore: must_be_immutable
 class VaccinScreen extends StatefulWidget {
-  const VaccinScreen({Key? key}) : super(key: key);
+  String id;
+  VaccinScreen({required this.id,Key? key}) : super(key: key);
 
   @override
   State<VaccinScreen> createState() => _VaccinScreenState();
@@ -16,7 +18,7 @@ class _VaccinScreenState extends State<VaccinScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.blue.withOpacity(0.04),
-      drawer: const NavBar(),
+      drawer:  NavBar(id: widget.id),
       appBar: AppBar(
         backgroundColor: Colors.blue.withOpacity(0.00),
         elevation: 0.0,

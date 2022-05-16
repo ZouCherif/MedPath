@@ -1,10 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'navBar.dart';
 import 'notifications_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  String id;
+  SettingsScreen({required this.id, Key? key}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -40,7 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       backgroundColor: Colors.blue.withOpacity(0.04),
-      drawer: const NavBar(),
+      drawer:  NavBar(id: widget.id),
       appBar: AppBar(
         elevation: 0.0,
         iconTheme: const IconThemeData(color: Color.fromARGB(156, 6, 37, 70)),

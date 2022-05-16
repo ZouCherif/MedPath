@@ -1,16 +1,15 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import '../models/notifcation.dart';
 
 class NotifCard extends StatelessWidget {
   final String docName;
   final String text;
   final String btnText;
 
-  NotifCard(this.docName, this.text, this.btnText);
+  NotifCard(this.docName, this.text, this.btnText, {Key? key}) : super(key: key);
+    var color = const Color(0xff0dbed8);
   @override
-  var color = const Color(0xff0dbed8);
   Widget build(BuildContext context) {
     return Container(
       height: 89,
