@@ -271,7 +271,7 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                                   borderRadius:
                                                       BorderRadius.circular(15))),
                                           onPressed: () {
-                                            FirebaseFirestore.instance.collection('users').doc(widget.id).collection('Visites medicales').set({
+                                            FirebaseFirestore.instance.collection('users').doc(widget.id).collection('Visites medicales').add({
                                               'rapport' : rapport.text,
                                               'time': DateTime.now(),
                                               });
