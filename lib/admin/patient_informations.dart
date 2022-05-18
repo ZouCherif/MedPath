@@ -130,8 +130,7 @@ class _PatientInformationsState extends State<PatientInformations> {
                                       width: 1.5,
                                     ),
                                   ),
-                                  hintText: "Place of Birth",
-
+                                  hintText: "chronic diseases",
                                   hintStyle: const TextStyle(
                                     color: bluefnc,
                                     fontFamily: 'poppins',
@@ -175,7 +174,7 @@ class _PatientInformationsState extends State<PatientInformations> {
                                           width: 1.5,
                                         ),
                                       ),
-                                      hintText: "Balaladiya of birth",
+                                      hintText: "allergies",
 
                                       hintStyle: const TextStyle(
                                         color: bluefnc,

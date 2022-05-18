@@ -245,6 +245,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         }catch (e){
                           await showErrorDialog(context, e.toString());
+                          // log(e.toString());
                         }                      
                       },                        
                       style: ElevatedButton.styleFrom(

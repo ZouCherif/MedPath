@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:real_version/colors.dart';
 import 'package:real_version/const/routes.dart';
+import 'package:real_version/patient/screens/profile_page.dart';
+import 'package:real_version/utilities/show_error_dialog.dart';
 
 import 'docSettings_page.dart';
 
@@ -191,8 +193,8 @@ class _SearchPatientState extends State<SearchPatient> {
               onPressed: () async{
                 if (searchcontroller.text.isNotEmpty){
                   try{
-                    
-                  }catch (e){
+                    await searchByText(context, searchcontroller);
+                  }catch (e){ 
                     log(e.toString());
                   }
                 }else{
@@ -288,7 +290,98 @@ class _SearchPatientState extends State<SearchPatient> {
 }
 
 
-Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> searchByField(String value) async {
-  final data = await FirebaseFirestore.instance.collection('users').where('id', isEqualTo: value).get();
-  return data.docs;
+// Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> searchByField(String value) async {
+//   final data = await FirebaseFirestore.instance.collection('users').where('id', isEqualTo: value).get();
+//   return data.docs;
+// }
+
+Future<void> searchByText(context, searchcontroller) async {
+    final QuerySnapshot result = await FirebaseFirestore.instance
+        .collection('users')
+        .where('id', isEqualTo: searchcontroller.text)
+        .get();
+    final List<DocumentSnapshot> documents = result.docs;
+    if (documents.length == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProfilPage1(id: searchcontroller.text),
+        ),
+      );
+    } else {
+      // showErrorDialog(context, 'user not found');
+      showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          elevation: 0,
+                          backgroundColor: Colors.white,
+                          child: SizedBox(
+                            width: 132,
+                            height: 177,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: SizedBox(
+                                    width: 132,
+                                    height: 140,
+                                    child: Stack(
+                                      children: [
+                                        Positioned.fill(
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Container(
+                                              width: 118,
+                                              height: 118,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(70),
+                                                color: const Color.fromRGBO(
+                                                    255, 112, 112, 100),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 132,
+                                          height: 129,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          child: const Icon(
+                                            Icons.close_rounded,
+                                            size: 129,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 15),
+                                const Text(
+                                  "Not found !",
+                                  style: TextStyle(
+                                    color: bluefnc,
+                                    fontSize: 22,
+                                    fontFamily: "Poppins",
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                              ],
+                            ),
+                          ));
+                    });
+    }
 }
+
