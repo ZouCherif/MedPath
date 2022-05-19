@@ -1,4 +1,8 @@
+import 'dart:developer';
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../widgets/visit_card.dart';
 import 'navBar.dart';
@@ -6,15 +10,21 @@ import 'notifications_screen.dart';
 
 
 // ignore: must_be_immutable
-class VisitScreen extends StatelessWidget {
+class VisitScreen extends StatefulWidget {
   String id;
    VisitScreen({required this.id, Key? key}) : super(key: key);
 
   @override
+  State<VisitScreen> createState() => _VisitScreenState();
+}
+
+class _VisitScreenState extends State<VisitScreen> {
+  final id = FirebaseAuth.instance.currentUser!.uid;
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        drawer:  NavBar(id:id),
+        drawer:  NavBar(id:widget.id),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
@@ -46,34 +56,25 @@ class VisitScreen extends StatelessWidget {
               const IconThemeData(color: Color.fromARGB(156, 6, 37, 70)),
         ),
         extendBodyBehindAppBar: true,
-        body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('users/$id/visites medicales')
-            .snapshots(),
-        builder: (context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
+      body :StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('users/$id/Visites medicales')
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            return ListView.builder(
+              itemCount: streamSnapshot.data!.docs.length,
+              itemBuilder: (ctx, index) => VisitCard( 
+                fullName: streamSnapshot.data!.docs[index]['full name'], 
+                date: streamSnapshot.data!.docs[index]['time'], 
+                rapport: streamSnapshot.data!.docs[index]['rapport'], 
+                specialite: streamSnapshot.data!.docs[index]['specialite'], 
+                imageUrl: '', 
+                localisation: '', ),
+                  // Text(streamSnapshot.data!.docs[index]['rapport']),
             );
-          }
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (ctx, index) => Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: size.width * 0.05, vertical: size.height * 0.01),
-              child: VisitCard(
-                fullName: snapshot.data!.docs[index].data()['nom'],
-                datee: snapshot.data!.docs[index].data()['date'],
-                specialite: snapshot.data!.docs[index].data()['specialite'],
-                rapport: snapshot.data!.docs[index].data()['rapport'],
-                localisation: snapshot.data!.docs[index].data()['localisation'],
-                imageUrl: snapshot.data!.docs[index].data()['imageUrl'],
-                snapshot: snapshot,
-              ),
-            ),
-          );
-        },
-      ),);
+          },
+  ));
   }
 }
+
+

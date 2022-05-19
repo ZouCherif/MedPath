@@ -17,13 +17,13 @@ class VisitCard extends StatelessWidget {
   final String specialite;
   final String imageUrl;
   final String rapport;
-  final String datee;
+  final String date;
   final String localisation;
   // ignore: use_key_in_widget_constructors
-  const VisitCard(
-      {required AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
+  const VisitCard({
+    // required AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
       required this.fullName,
-      required this.datee,
+      required this.date,
       required this.rapport,
       required this.specialite,
       required this.imageUrl,
@@ -33,7 +33,7 @@ class VisitCard extends StatelessWidget {
     return InkWell(
       child: Container(
         padding: const EdgeInsets.all(10.0),
-        height: 194,
+        height: 250,
         width: 341,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(color: Colors.grey.withOpacity(.1), blurRadius: 70)
@@ -94,7 +94,7 @@ class VisitCard extends StatelessWidget {
                               ),
                               const SizedBox(width: 5),
                               Text(
-                                datee,
+                                date,
                                 style: const TextStyle(
                                   color: Color(0xffc4c4c4),
                                   fontSize: 11.0,

@@ -1,7 +1,11 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
+
 import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:real_version/utilities/show_error_dialog.dart';
 import 'navBar.dart';
 import 'notifications_screen.dart';
 
@@ -14,6 +18,27 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  // late final TextEditingController currentpassword;
+  // late final TextEditingController newpassword;
+  // late final TextEditingController newpassword2;
+
+
+  //   @override
+  // void initState() {
+  //   currentpassword = TextEditingController();
+  //   newpassword = TextEditingController();
+  //   newpassword2 = TextEditingController();
+  //   super.initState();
+  // }
+
+  // @override
+  // void dispose() {
+  //   currentpassword.dispose();
+  //   newpassword.dispose();
+  //   newpassword2.dispose();
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -93,7 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               baseColor: Colors.white,
               expandedColor: Colors.white,
               title: const Text(
-                "changer le mot de passe",
+                "change password",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -102,89 +127,109 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.05, right: size.width * 0.05),
-                      child: SizedBox(
-                        height: 40,
-                        width: size.width * 0.85,
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromRGBO(209, 209, 209, 100),
-                                      width: 1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0))),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0xff0dbed8), width: 2),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0))),
-                              labelText: 'mot de passe recent',
-                              labelStyle: TextStyle(
-                                  color: Color.fromRGBO(209, 209, 209, 100))),
-                        ),
-                      ),
+                    const Text('if you want to change your password, press the button below \nyou will reseive a message at your email to reset your password',
+                     style: TextStyle(
+                       fontSize: 20,
+                       fontWeight: FontWeight.w500,
+                       color: Color.fromRGBO(64, 96, 131, 100),
+                     ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.05, right: size.width * 0.05),
-                      child: SizedBox(
-                        height: 40,
-                        width: size.width * 0.85,
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromRGBO(209, 209, 209, 100),
-                                      width: 1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0))),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0xff0dbed8), width: 2),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0))),
-                              labelText: 'nouveau mot de passe',
-                              labelStyle: TextStyle(
-                                  color: Color.fromRGBO(209, 209, 209, 100))),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.05, right: size.width * 0.05),
-                      child: SizedBox(
-                        height: 40,
-                        width: size.width * 0.85,
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromRGBO(209, 209, 209, 100),
-                                      width: 1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0))),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0xff0dbed8), width: 2),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0))),
-                              labelText: 'confirmer le nouveau mot de passe',
-                              labelStyle: TextStyle(
-                                  color: Color.fromRGBO(209, 209, 209, 100))),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15)
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //       left: size.width * 0.05, right: size.width * 0.05),
+                    //   child: SizedBox(
+                    //     height: 40,
+                    //     width: size.width * 0.85,
+                    //     child: TextFormField(
+                    //       controller: currentpassword,
+                    //       decoration: const InputDecoration(
+                    //           enabledBorder: OutlineInputBorder(
+                    //               borderSide: BorderSide(
+                    //                   color: Color.fromRGBO(209, 209, 209, 100),
+                    //                   width: 1),
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(15.0))),
+                    //           focusedBorder: OutlineInputBorder(
+                    //               borderSide: BorderSide(
+                    //                   color: Color(0xff0dbed8), width: 2),
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(15.0))),
+                    //           labelText: 'Email',
+                    //           labelStyle: TextStyle(
+                    //               color: Color.fromRGBO(209, 209, 209, 100))),
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //       left: size.width * 0.05, right: size.width * 0.05),
+                    //   child: SizedBox(
+                    //     height: 40,
+                    //     width: size.width * 0.85,
+                    //     child: TextFormField(
+                    //       controller: newpassword,
+                    //       decoration: const InputDecoration(
+                    //           enabledBorder: OutlineInputBorder(
+                    //               borderSide: BorderSide(
+                    //                   color: Color.fromRGBO(209, 209, 209, 100),
+                    //                   width: 1),
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(15.0))),
+                    //           focusedBorder: OutlineInputBorder(
+                    //               borderSide: BorderSide(
+                    //                   color: Color(0xff0dbed8), width: 2),
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(15.0))),
+                    //           labelText: 'nouveau mot de passe',
+                    //           labelStyle: TextStyle(
+                    //               color: Color.fromRGBO(209, 209, 209, 100))),
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //       left: size.width * 0.05, right: size.width * 0.05),
+                    //   child: SizedBox(
+                    //     height: 40,
+                    //     width: size.width * 0.85,
+                    //     child: TextFormField(
+                    //       controller: newpassword2,
+                    //       decoration: const InputDecoration(
+                    //           enabledBorder: OutlineInputBorder(
+                    //               borderSide: BorderSide(
+                    //                   color: Color.fromRGBO(209, 209, 209, 100),
+                    //                   width: 1),
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(15.0))),
+                    //           focusedBorder: OutlineInputBorder(
+                    //               borderSide: BorderSide(
+                    //                   color: Color(0xff0dbed8), width: 2),
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(15.0))),
+                    //           labelText: 'confirmer le nouveau mot de passe',
+                    //           labelStyle: TextStyle(
+                    //               color: Color.fromRGBO(209, 209, 209, 100))),
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 15),
+                    TextButton(onPressed:() async{
+                      try{
+                        final useremail = FirebaseAuth.instance.currentUser!.email ?? 'error';
+                        await FirebaseAuth.instance.sendPasswordResetEmail(email: useremail);
+                      }catch (e){
+                        showErrorDialog(context, 'Error: ay ay ay');
+                      }
+                    },
+                    child: const Text('send')),
                   ],
+                  
                 )
               ],
             ),

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:real_version/colors.dart';
 import 'package:real_version/const/routes.dart';
 import 'package:real_version/utilities/show_error_dialog.dart';
@@ -112,7 +113,7 @@ class _FirstPageState extends State<FirstPage> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 39,
+                    height: 15,
                   ),
 
                   const FittedBox(
@@ -131,7 +132,7 @@ class _FirstPageState extends State<FirstPage> {
                   ),
                   const RadioGroup(),
                   const SizedBox(
-                    height: 38,
+                    height: 10,
                   ),
                   Container(
                     height: 42,
@@ -163,48 +164,68 @@ class _FirstPageState extends State<FirstPage> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Container(
-                    height: 42,
-                    width: 336,
-                    decoration: const BoxDecoration(),
-                    child: TextField(
-                      controller: _password,
-                      obscureText: isPasswordVisible ? false : true,
-                      decoration: InputDecoration(
-                        fillColor: bgcolor,
-                        labelText: "enter the password",
-                        labelStyle:
-                            const TextStyle(fontSize: 15, color: bluefnc),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromRGBO(209, 209, 209, 5),
-                                width: 2),
-                            borderRadius: BorderRadius.circular(15)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromRGBO(209, 209, 209, 5),
-                              width: 2),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        prefixIcon: const Icon(
-                          Icons.key_outlined,
-                          color: bluefnc,
-                        ),
-                        suffixIcon: IconButton(
-                          color: bluefnc,
-                          onPressed: () {
-                            setState(() {
-                              isPasswordVisible = !isPasswordVisible;
-                            });
-                          },
-                          icon: Icon(isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                        ),
+                  Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 336,
+                        decoration: const BoxDecoration(),
+                          child: TextField(
+                              controller: _password,
+                              obscureText: isPasswordVisible ? false : true,
+                              decoration: InputDecoration(
+                                fillColor: bgcolor,
+                                labelText: "enter the password",
+                                labelStyle:
+                                    const TextStyle(fontSize: 15, color: bluefnc),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromRGBO(209, 209, 209, 5),
+                                        width: 2),
+                                    borderRadius: BorderRadius.circular(15)),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromRGBO(209, 209, 209, 5),
+                                      width: 2),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.key_outlined,
+                                  color: bluefnc,
+                                ),
+                                suffixIcon: IconButton(
+                                  color: bluefnc,
+                                  onPressed: () {
+                                    setState(() {
+                                      isPasswordVisible = !isPasswordVisible;
+                                    });
+                                  },
+                                  icon: Icon(isPasswordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                ),
+                              ),
+                            ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
+                          const SizedBox(height: 5,),
+                          FlutterPwValidator(
+                            controller: _password, 
+                            height: 95, 
+                            minLength: 8, 
+                            width: 350, 
+                            specialCharCount: 1,
+                            numericCharCount: 3,
+                            onSuccess: (){
+
+                            },
+                            onFail: (){
+
+                            },
+                          ),
+                          ],
+                        ),
+                  const SizedBox(height: 10,),
+
                   Container(
                     height: 42,
                     width: 336,
@@ -482,8 +503,8 @@ class RadioGroupWidget extends State {
 }
 
 Future<UserCredential> register(String email, String password) async {
-    FirebaseApp app = await Firebase.initializeApp(
-        name: 'Medpath', options: Firebase.app().options);
+  FirebaseApp app;
+    app = await Firebase.initializeApp(name: 'MedPath',options: Firebase.app().options);
         UserCredential userCredential = await FirebaseAuth.instanceFor(app: app)
         .createUserWithEmailAndPassword(email: email, password: password);
     

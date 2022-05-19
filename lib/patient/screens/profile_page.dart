@@ -1,4 +1,5 @@
 // ignore_for_file: sized_box_for_whitespace
+import 'dart:developer' as log;
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -270,10 +271,13 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(15))),
-                                          onPressed: () {
+                                          onPressed: () async{ 
+                                            Map userdata = await getData(user) as Map;
                                             FirebaseFirestore.instance.collection('users').doc(widget.id).collection('Visites medicales').add({
                                               'rapport' : rapport.text,
                                               'time': DateTime.now(),
+                                              'full name' : userdata['full name'],
+                                              'specialite' : userdata['specialite'],
                                               });
                                             Navigator.of(context).pop();
                                           },
@@ -387,7 +391,7 @@ class _ProfilPage1State extends State<ProfilPage1> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: Text(
-                      fullName,
+                      content['full name'],
                       style: const TextStyle(
                         fontSize: 18.0,
                         fontFamily: 'Poppins',
@@ -408,7 +412,7 @@ class _ProfilPage1State extends State<ProfilPage1> {
                             fontWeight: FontWeight.w600,
                             color: Color.fromARGB(255, 44, 98, 143),
                           )),
-                      Text(id,
+                      Text(content['id'],
                           style: const TextStyle(
                             fontSize: 12.0,
                             fontFamily: 'Poppins',
@@ -616,7 +620,7 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                             const SizedBox(width: 15),
                                             FittedBox(
                                               child: Text(
-                                                telephone,
+                                                content['Telephone'].toString(),
                                                 style: TextStyle(
                                                   color: const Color(0xffc4c4c4),
                                                   fontSize: size.width * 0.03333333,
@@ -738,7 +742,7 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                                     CrossAxisAlignment.center,
                                                 children: [
                                                   // ignore: unrelated_type_equality_checks
-                                                  if (sexe == Sexe.F)
+                                                  if (content['sexe'] == 'F')
                                                     FittedBox(
                                                       child: Row(
                                                         crossAxisAlignment:
@@ -846,93 +850,92 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                                 ),
                                               ),
                                               const SizedBox(height: 10),
-                                              if (sang == Sang.Opositive)
-                                                const FittedBox(
+                                                  FittedBox(
                                                   child: Text(
-                                                    "O+",
-                                                    style: TextStyle(
-                                                      color: Color(0xffc4c4c4),
-                                                      fontSize: 20,
+                                                    content['Groupe sanguin'],
+                                                    style: const TextStyle(
+                                                      color:  Color(0xffc4c4c4),
+                                                      fontSize: 30,
                                                       fontFamily: "Poppins",
                                                       fontWeight: FontWeight.w700,
                                                     ),
                                                   ),
                                                 )
-                                              else if (sang == Sang.Onegative)
-                                                const FittedBox(
-                                                  child: Text(
-                                                    "O-",
-                                                    style: TextStyle(
-                                                      color: Color(0xffc4c4c4),
-                                                      fontSize: 27,
-                                                      fontFamily: "Poppins",
-                                                      fontWeight: FontWeight.w700,
-                                                    ),
-                                                  ),
-                                                )
-                                              else if (sang == Sang.Anegative)
-                                                Text(
-                                                  "A-",
-                                                  style: TextStyle(
-                                                    color: const Color(0xffc4c4c4),
-                                                    fontSize: 0.06 * size.width,
-                                                    fontFamily: "Poppins",
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                )
-                                              else if (sang == Sang.Apositive)
-                                                Text(
-                                                  "A+",
-                                                  style: TextStyle(
-                                                    color: const Color(0xffc4c4c4),
-                                                    fontSize: 0.06 * size.width,
-                                                    fontFamily: "Poppins",
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                )
-                                              else if (sang == Sang.Bnegative)
-                                                Text(
-                                                  "B-",
-                                                  style: TextStyle(
-                                                    color: const Color(0xffc4c4c4),
-                                                    fontSize: 0.06 * size.width,
-                                                    fontFamily: "Poppins",
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                )
-                                              else if (sang == Sang.Bpositive)
-                                                Text(
-                                                  "B+",
-                                                  style: TextStyle(
-                                                    color: const Color(0xffc4c4c4),
-                                                    fontSize: 0.06 * size.width,
-                                                    fontFamily: "Poppins",
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                )
-                                              else if (sang == Sang.ABnegative)
-                                                Text(
-                                                  "AB-",
-                                                  style: TextStyle(
-                                                    color: const Color(0xffc4c4c4),
-                                                    fontSize: 0.06 * size.width,
-                                                    fontFamily: "Poppins",
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                )
-                                              else if (sang == Sang.ABpositive)
-                                                FittedBox(
-                                                  child: Text(
-                                                    "AB+",
-                                                    style: TextStyle(
-                                                      color:
-                                                          const Color(0xffc4c4c4),
-                                                      fontSize: 0.06 * size.width,
-                                                      fontFamily: "Poppins",
-                                                      fontWeight: FontWeight.w700,
-                                                    ),
-                                                  ),
-                                                )
+                                              // else if (sang == Sang.Onegative)
+                                              //   const FittedBox(
+                                              //     child: Text(
+                                              //       "O-",
+                                              //       style: TextStyle(
+                                              //         color: Color(0xffc4c4c4),
+                                              //         fontSize: 27,
+                                              //         fontFamily: "Poppins",
+                                              //         fontWeight: FontWeight.w700,
+                                              //       ),
+                                              //     ),
+                                              //   )
+                                              // else if (sang == Sang.Anegative)
+                                              //   Text(
+                                              //     "A-",
+                                              //     style: TextStyle(
+                                              //       color: const Color(0xffc4c4c4),
+                                              //       fontSize: 0.06 * size.width,
+                                              //       fontFamily: "Poppins",
+                                              //       fontWeight: FontWeight.w700,
+                                              //     ),
+                                              //   )
+                                              // else if (sang == Sang.Apositive)
+                                              //   Text(
+                                              //     "A+",
+                                              //     style: TextStyle(
+                                              //       color: const Color(0xffc4c4c4),
+                                              //       fontSize: 0.06 * size.width,
+                                              //       fontFamily: "Poppins",
+                                              //       fontWeight: FontWeight.w700,
+                                              //     ),
+                                              //   )
+                                              // else if (sang == Sang.Bnegative)
+                                              //   Text(
+                                              //     "B-",
+                                              //     style: TextStyle(
+                                              //       color: const Color(0xffc4c4c4),
+                                              //       fontSize: 0.06 * size.width,
+                                              //       fontFamily: "Poppins",
+                                              //       fontWeight: FontWeight.w700,
+                                              //     ),
+                                              //   )
+                                              // else if (sang == Sang.Bpositive)
+                                              //   Text(
+                                              //     "B+",
+                                              //     style: TextStyle(
+                                              //       color: const Color(0xffc4c4c4),
+                                              //       fontSize: 0.06 * size.width,
+                                              //       fontFamily: "Poppins",
+                                              //       fontWeight: FontWeight.w700,
+                                              //     ),
+                                              //   )
+                                              // else if (sang == Sang.ABnegative)
+                                              //   Text(
+                                              //     "AB-",
+                                              //     style: TextStyle(
+                                              //       color: const Color(0xffc4c4c4),
+                                              //       fontSize: 0.06 * size.width,
+                                              //       fontFamily: "Poppins",
+                                              //       fontWeight: FontWeight.w700,
+                                              //     ),
+                                              //   )
+                                              // else if (sang == Sang.ABpositive)
+                                              //   FittedBox(
+                                              //     child: Text(
+                                              //       "AB+",
+                                              //       style: TextStyle(
+                                              //         color:
+                                              //             const Color(0xffc4c4c4),
+                                              //         fontSize: 0.06 * size.width,
+                                              //         fontFamily: "Poppins",
+                                              //         fontWeight: FontWeight.w700,
+                                              //       ),
+                                              //     ),
+                                              //   )
                                             ],
                                           ),
                                         ),
@@ -991,7 +994,7 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                     height: 35,
                                     child: FittedBox(
                                       child: Text(
-                                        pweight.toString() + " KG ",
+                                        content['weight'].toString() + " KG ",
                                         style: const TextStyle(
                                           fontSize: 20,
                                           color: Color(0xff0dbed8),
@@ -1020,8 +1023,8 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                         ),
                                         const SizedBox(width: 12),
                                         Container(
-                                          width: 52,
-                                          height: 19,
+                                          width: 70,
+                                          height: 25,
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
@@ -1031,17 +1034,12 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                             children: [
                                               FittedBox(
                                                 child: Container(
-                                                  width: 52,
-                                                  height: 19,
+                                                  width: 70,
+                                                  height: 25,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(8),
                                                     color: const Color(0xffff858f),
-                                                  ),
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                    horizontal: 16,
-                                                    vertical: 2,
                                                   ),
                                                   child: Row(
                                                     mainAxisSize: MainAxisSize.min,
@@ -1049,13 +1047,13 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                                         MainAxisAlignment.center,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment.center,
-                                                    children: const [
+                                                    children:  [
                                                       FittedBox(
                                                         child: Text(
-                                                          "Bad",
-                                                          style: TextStyle(
+                                                          imc(content['height'], content['weight']),
+                                                          style: const TextStyle(
                                                             color: Colors.white,
-                                                            fontSize: 10,
+                                                            fontSize: 15,
                                                           ),
                                                         ),
                                                       ),
@@ -1138,7 +1136,7 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                   height: 35,
                                   child: FittedBox(
                                     child: Text(
-                                      pheight.toString() + " CM ",
+                                      content['height'].toString() + " CM ",
                                       style: const TextStyle(
                                         fontSize: 20,
                                         color: Color(0xff0dbed8),
@@ -1147,75 +1145,75 @@ class _ProfilPage1State extends State<ProfilPage1> {
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                left: 100,
-                                top: 50,
-                                child: SizedBox(
-                                  width: 0.46 * size.width,
-                                  height: 19,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        "Doctor’s review ",
-                                        style: TextStyle(
-                                          color: Color(0xffc4c4c4),
-                                          fontSize: 9,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Container(
-                                        width: 52,
-                                        height: 19,
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            FittedBox(
-                                              child: Container(
-                                                width: 52,
-                                                height: 19,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: const Color(0xffff858f),
-                                                ),
-                                                padding: const EdgeInsets.symmetric(
-                                                  horizontal: 16,
-                                                  vertical: 2,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: const [
-                                                    FittedBox(
-                                                      child: Text(
-                                                        "Bad",
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 10,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              // Positioned(
+                              //   left: 100,
+                              //   top: 50,
+                              //   child: SizedBox(
+                              //     width: 0.46 * size.width,
+                              //     height: 19,
+                              //     child: Row(
+                              //       mainAxisSize: MainAxisSize.min,
+                              //       mainAxisAlignment: MainAxisAlignment.end,
+                              //       crossAxisAlignment: CrossAxisAlignment.center,
+                              //       children: [
+                              //         const Text(
+                              //           "Doctor’s review ",
+                              //           style: TextStyle(
+                              //             color: Color(0xffc4c4c4),
+                              //             fontSize: 9,
+                              //           ),
+                              //         ),
+                              //         const SizedBox(width: 12),
+                              //         Container(
+                              //           width: 52,
+                              //           height: 19,
+                              //           child: Row(
+                              //             mainAxisSize: MainAxisSize.min,
+                              //             mainAxisAlignment:
+                              //                 MainAxisAlignment.center,
+                              //             crossAxisAlignment:
+                              //                 CrossAxisAlignment.center,
+                              //             children: [
+                              //               FittedBox(
+                              //                 child: Container(
+                              //                   width: 52,
+                              //                   height: 19,
+                              //                   decoration: BoxDecoration(
+                              //                     borderRadius:
+                              //                         BorderRadius.circular(8),
+                              //                     color: const Color(0xffff858f),
+                              //                   ),
+                              //                   padding: const EdgeInsets.symmetric(
+                              //                     horizontal: 16,
+                              //                     vertical: 2,
+                              //                   ),
+                              //                   child: Row(
+                              //                     mainAxisSize: MainAxisSize.min,
+                              //                     mainAxisAlignment:
+                              //                         MainAxisAlignment.center,
+                              //                     crossAxisAlignment:
+                              //                         CrossAxisAlignment.center,
+                              //                     children: const [
+                              //                       FittedBox(
+                              //                         child: Text(
+                              //                           "Bad",
+                              //                           style: TextStyle(
+                              //                             color: Colors.white,
+                              //                             fontSize: 10,
+                              //                           ),
+                              //                         ),
+                              //                       ),
+                              //                     ],
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
                               const Positioned(
                                 left: 145,
                                 top: 17,
@@ -1270,3 +1268,13 @@ class _ProfilPage1State extends State<ProfilPage1> {
     // upload file to firebase storage
   }
 
+
+
+  String imc(taille,poids) {
+    num N = poids/((taille/100)*(taille/100));
+    if (N >= 18 && N <= 24.9){
+      return 'good';
+    }else{
+      return 'BAD';
+    }
+  }
